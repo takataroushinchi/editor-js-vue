@@ -1,8 +1,12 @@
 <script setup>
 import HelloWorld from "@/components/HelloWorld.vue";
+import Editor from "./components/Editor.vue";
 </script>
 
 <template>
+  <div class="editor">
+    <Editor />
+  </div>
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -26,5 +30,9 @@ import HelloWorld from "@/components/HelloWorld.vue";
 }
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
+}
+.editor {
+  background: #eee;
+  padding: 16px;
 }
 </style>
