@@ -7,6 +7,7 @@ import Editor from "./components/Editor.vue";
   <div class="editor">
     <Editor />
   </div>
+  <button class="text-white bg-blue-500 py-2 px-3">Primary</button>
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />

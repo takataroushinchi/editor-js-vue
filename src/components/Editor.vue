@@ -5,6 +5,8 @@ import Header from "@editorjs/header";
 import List from "@editorjs/list";
 import SimpleImage from "@editorjs/simple-image";
 import RawTool from "@editorjs/raw";
+import DragDrop from "editorjs-drag-drop";
+import Undo from "editorjs-undo";
 
 let editor;
 
@@ -22,6 +24,10 @@ onMounted(() => {
       list: List,
       image: SimpleImage,
       raw: RawTool,
+    },
+    onReady: () => {
+      new Undo({ editor });
+      new DragDrop(editor);
     },
   });
 });
