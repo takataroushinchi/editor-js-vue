@@ -81,6 +81,9 @@ onMounted(() => {
           data: {
             text: "フッター",
             copyright: "©SSSS",
+            withBorder: false,
+            withBackground: true,
+            stretched: false,
           },
         },
       ],
@@ -102,5 +105,23 @@ onMounted(() => {
 <style scoped>
 .read-the-docs {
   color: #888;
+}
+</style>
+
+<style>
+.footer.withBorder img {
+  border: 1px solid #e8e8eb;
+}
+
+.footer.withBackground {
+  background: #999;
+  color: #fff;
+  padding: 10px;
+}
+
+.footer.withBackground img {
+  display: block;
+  max-width: 60%;
+  margin: 0 auto 15px;
 }
 </style>
