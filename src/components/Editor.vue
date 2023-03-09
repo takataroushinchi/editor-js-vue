@@ -8,6 +8,7 @@ import RawTool from "@editorjs/raw";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
 import { SimpleText } from "@/components/editor/simple-text";
+import { Footer } from "@/components/editor/footer";
 
 let editor;
 
@@ -52,6 +53,7 @@ onMounted(() => {
         class: SimpleText,
         inlineToolbar: true,
       },
+      footer: Footer,
     },
     onReady: () => {
       new Undo({ editor });
@@ -72,6 +74,13 @@ onMounted(() => {
           type: "image",
           data: {
             url: "https://cdn.pixabay.com/photo/2017/09/01/21/53/blue-2705642_1280.jpg",
+          },
+        },
+        {
+          type: "footer",
+          data: {
+            text: "フッター",
+            copyright: "©SSSS",
           },
         },
       ],
