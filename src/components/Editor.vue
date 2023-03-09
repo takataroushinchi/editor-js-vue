@@ -14,13 +14,20 @@ defineProps({
   msg: String,
 });
 
-const count = ref(0);
-
 onMounted(() => {
   editor = new EditorJS({
     holder: "editorjs",
     tools: {
-      header: Header,
+      header: {
+        class: Header,
+        config: {
+          placeholder: "Enter a header",
+          levels: [1, 2, 3, 4],
+          defaultLevel: 3,
+        },
+        inlineToolbar: true,
+        shortcut: "CMD+SHIFT+H",
+      },
       list: List,
       image: SimpleImage,
       raw: RawTool,
@@ -28,6 +35,19 @@ onMounted(() => {
     onReady: () => {
       new Undo({ editor });
       new DragDrop(editor);
+    },
+    data: {
+      time: 1550476186479,
+      blocks: [
+        {
+          type: "header",
+          data: {
+            text: "タイトル（H3）",
+            level: 3,
+          },
+        },
+      ],
+      version: "2.8.1",
     },
   });
 });
