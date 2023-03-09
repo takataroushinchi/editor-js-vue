@@ -30,6 +30,10 @@ const handleClick = (e) => {
     });
 };
 
+const toggleReadOnly = () => {
+  editor.readOnly.toggle();
+};
+
 onMounted(() => {
   editor = new EditorJS({
     holder: "editorjs",
@@ -39,7 +43,7 @@ onMounted(() => {
         class: Header,
         config: {
           placeholder: "Enter a header",
-          levels: [1, 2, 3, 4],
+          levels: [2, 3, 4],
           defaultLevel: 3,
         },
         // inlineToolbar: ['marker', 'link'],
@@ -53,7 +57,10 @@ onMounted(() => {
         class: SimpleText,
         inlineToolbar: true,
       },
-      footer: Footer,
+      footer: {
+        class: Footer,
+        inlineToolbar: true,
+      },
     },
     onReady: () => {
       new Undo({ editor });
@@ -96,9 +103,14 @@ onMounted(() => {
 <template>
   <h1>{{ msg }}</h1>
   <div id="editorjs"></div>
-  <button class="text-white bg-blue-500 py-2 px-3" @click="handleClick">
-    保存
-  </button>
+  <div class="flex gap-2">
+    <button class="text-white bg-blue-500 py-2 px-3" @click="handleClick">
+      保存
+    </button>
+    <button class="text-white bg-blue-500 py-2 px-3" @click="toggleReadOnly">
+      編集ON/OFF
+    </button>
+  </div>
   <pre>{{ saveData }}</pre>
 </template>
 

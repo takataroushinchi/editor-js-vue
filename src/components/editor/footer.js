@@ -6,7 +6,18 @@ export class Footer {
     };
   }
 
-  constructor({ data }) {
+  /**
+   * Automatic sanitize config
+   */
+  static get sanitize() {
+    return {
+      text: {}, // only tags from Inline Toolbar
+      copyright: {}, // only tags from Inline Toolbar
+    };
+  }
+
+  constructor({ data, api }) {
+    this.api = api;
     this.data = {
       text: data.text || "",
       copyright: data.copyright || "",
@@ -58,9 +69,9 @@ export class Footer {
     this.settings.forEach((tune) => {
       let button = document.createElement("div");
 
-      button.classList.add("cdx-settings-button");
+      button.classList.add(this.api.styles.settingsButton);
       button.classList.toggle(
-        "cdx-settings-button--active",
+        this.api.styles.settingsButtonActive,
         this.data[tune.name]
       );
       button.innerHTML = tune.icon;
@@ -68,7 +79,7 @@ export class Footer {
 
       button.addEventListener("click", () => {
         this._toggleTune(tune.name);
-        button.classList.toggle("cdx-settings-button--active");
+        button.classList.toggle(this.api.styles.settingsButtonActive);
       });
     });
 
@@ -92,6 +103,13 @@ export class Footer {
   _acceptTuneView() {
     this.settings.forEach((tune) => {
       this.wrapper.classList.toggle(tune.name, !!this.data[tune.name]);
+
+      if (tune.name === "stretched") {
+        this.api.blocks.stretchBlock(
+          this.api.blocks.getCurrentBlockIndex(),
+          !!this.data.stretched
+        );
+      }
     });
   }
 
