@@ -1,11 +1,11 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import ImageTool from "@editorjs/image";
+import EditorJS from '@editorjs/editorjs';
+import Header from '@editorjs/header';
+import ImageTool from '@editorjs/image';
+import { onMounted, ref } from 'vue';
 
 let editor;
-let saveData = ref("");
+let saveData = ref('');
 
 defineProps({
   msg: String,
@@ -15,17 +15,17 @@ const handleClick = (e) => {
   editor
     .save()
     .then((outputData) => {
-      console.log("Article data: ", outputData);
+      console.log('Article data: ', outputData);
       saveData.value = JSON.stringify(outputData, null, 4);
     })
     .catch((error) => {
-      console.log("Saving failed: ", error);
+      console.log('Saving failed: ', error);
     });
 };
 
 onMounted(() => {
   editor = new EditorJS({
-    holder: "editorjs",
+    holder: 'editorjs',
     inlineToolbar: true,
     tools: {
       header: Header,
@@ -33,8 +33,8 @@ onMounted(() => {
         class: ImageTool,
         config: {
           endpoints: {
-            byFile: "http://localhost:8008/uploadFile", // Your backend file uploader endpoint
-            byUrl: "http://localhost:8008/fetchUrl", // Your endpoint that provides uploading by Url
+            byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+            byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
           },
         },
       },
@@ -43,24 +43,24 @@ onMounted(() => {
       time: 1550476186479,
       blocks: [
         {
-          type: "header",
+          type: 'header',
           data: {
-            text: "タイトル（H3）",
+            text: 'タイトル（H3）',
             level: 3,
           },
         },
         {
-          type: "image",
+          type: 'image',
           data: {
-            url: "https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.jpg",
-            caption: "Roadster // tesla.com",
+            url: 'https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.jpg',
+            caption: 'Roadster // tesla.com',
             withBorder: false,
             withBackground: false,
             stretched: true,
           },
         },
       ],
-      version: "2.8.1",
+      version: '2.8.1',
     },
   });
 });

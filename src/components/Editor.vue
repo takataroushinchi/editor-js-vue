@@ -1,23 +1,23 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
-import Marker from "@editorjs/marker";
-import Quote from "@editorjs/quote";
-import Table from "@editorjs/table";
-import Delimiter from "@editorjs/delimiter";
-import Embed from "@editorjs/embed";
-import SimpleImage from "@editorjs/simple-image";
-import DragDrop from "editorjs-drag-drop";
-import Undo from "editorjs-undo";
-import { SimpleText } from "@/components/editor/simple-text";
-import { Footer } from "@/components/editor/footer";
-import edjsHTML from "editorjs-html";
+import { Footer } from '@/components/editor/footer';
+import { SimpleText } from '@/components/editor/simple-text';
+import Delimiter from '@editorjs/delimiter';
+import EditorJS from '@editorjs/editorjs';
+import Embed from '@editorjs/embed';
+import Header from '@editorjs/header';
+import List from '@editorjs/list';
+import Marker from '@editorjs/marker';
+import Quote from '@editorjs/quote';
+import SimpleImage from '@editorjs/simple-image';
+import Table from '@editorjs/table';
+import DragDrop from 'editorjs-drag-drop';
+import edjsHTML from 'editorjs-html';
+import Undo from 'editorjs-undo';
+import { onMounted, ref } from 'vue';
 
 let editor;
-let saveData = ref("");
-let parsedHtml = ref("");
+let saveData = ref('');
+let parsedHtml = ref('');
 
 defineProps({
   msg: String,
@@ -27,13 +27,13 @@ const handleClick = (e) => {
   editor
     .save()
     .then((outputData) => {
-      console.log("Article data: ", outputData);
+      console.log('Article data: ', outputData);
       saveData.value = JSON.stringify(outputData, null, 4);
 
       parsedHtml.value = edjsParser.parse(outputData);
     })
     .catch((error) => {
-      console.log("Saving failed: ", error);
+      console.log('Saving failed: ', error);
     });
 };
 
@@ -57,18 +57,18 @@ function footerParser(block) {
 
 onMounted(() => {
   editor = new EditorJS({
-    holder: "editorjs",
+    holder: 'editorjs',
     inlineToolbar: true,
     tools: {
       header: {
         class: Header,
         config: {
-          placeholder: "へッダー",
+          placeholder: 'へッダー',
           levels: [2, 3, 4],
           defaultLevel: 3,
         },
         inlineToolbar: true,
-        shortcut: "CMD+SHIFT+H",
+        shortcut: 'CMD+SHIFT+H',
       },
       image: SimpleImage,
       list: List,
@@ -84,10 +84,10 @@ onMounted(() => {
       quote: {
         class: Quote,
         inlineToolbar: true,
-        shortcut: "CMD+SHIFT+O",
+        shortcut: 'CMD+SHIFT+O',
         config: {
-          quotePlaceholder: "テキストを入力",
-          captionPlaceholder: "キャプションを入力",
+          quotePlaceholder: 'テキストを入力',
+          captionPlaceholder: 'キャプションを入力',
         },
       },
       delimiter: Delimiter,
@@ -101,7 +101,7 @@ onMounted(() => {
       },
       marker: {
         class: Marker,
-        shortcut: "CMD+SHIFT+M",
+        shortcut: 'CMD+SHIFT+M',
       },
       simpleText: {
         class: SimpleText,
@@ -117,44 +117,44 @@ onMounted(() => {
         ui: {
           blockTunes: {
             toggler: {
-              "Click to tune": "クリックして調整",
-              "or drag to move": "ドラッグして移動",
+              'Click to tune': 'クリックして調整',
+              'or drag to move': 'ドラッグして移動',
             },
           },
           inlineToolbar: {
             converter: {
-              "Convert to": "変換",
+              'Convert to': '変換',
             },
           },
           toolbar: {
             toolbox: {
-              Add: "追加",
+              Add: '追加',
             },
           },
         },
         toolNames: {
-          Text: "テキスト",
-          Heading: "タイトル",
-          List: "リスト",
+          Text: 'テキスト',
+          Heading: 'タイトル',
+          List: 'リスト',
           // Checklist: "チェックリスト",
-          Quote: "引用",
-          Delimiter: "直線",
-          Table: "表",
+          Quote: '引用',
+          Delimiter: '直線',
+          Table: '表',
           // Link: "リンク",
-          Bold: "太字",
-          Italic: "斜体",
-          Image: "画像",
-          Marker: "マーカー",
+          Bold: '太字',
+          Italic: '斜体',
+          Image: '画像',
+          Marker: 'マーカー',
         },
         blockTunes: {
           deleteTune: {
-            Delete: "削除",
+            Delete: '削除',
           },
           moveUpTune: {
-            "Move up": "上に移動",
+            'Move up': '上に移動',
           },
           moveDownTune: {
-            "Move down": "下に移動",
+            'Move down': '下に移動',
           },
         },
       },
@@ -168,30 +168,30 @@ onMounted(() => {
       time: 1550476186479,
       blocks: [
         {
-          type: "header",
+          type: 'header',
           data: {
-            text: "タイトル（H3）",
+            text: 'タイトル（H3）',
             level: 3,
           },
         },
         {
-          type: "image",
+          type: 'image',
           data: {
-            url: "https://cdn.pixabay.com/photo/2017/09/01/21/53/blue-2705642_1280.jpg",
+            url: 'https://cdn.pixabay.com/photo/2017/09/01/21/53/blue-2705642_1280.jpg',
           },
         },
         {
-          type: "footer",
+          type: 'footer',
           data: {
-            text: "フッター",
-            copyright: "©SSSS",
+            text: 'フッター',
+            copyright: '©SSSS',
             withBorder: false,
             withBackground: true,
             stretched: false,
           },
         },
       ],
-      version: "2.8.1",
+      version: '2.8.1',
     },
   });
 });

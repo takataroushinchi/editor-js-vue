@@ -1,6 +1,6 @@
 <script setup>
-import HelloWorld from "@/components/HelloWorld.vue";
-import Editor from "./components/Editor.vue";
+import HelloWorld from '@/components/HelloWorld.vue';
+import Editor from './components/Editor.vue';
 </script>
 
 <template>
