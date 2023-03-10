@@ -53,7 +53,11 @@ export class Footer {
   render() {
     this.wrapper = document.createElement("div");
     this.text = document.createElement("div");
+    const p = document.createElement("p");
     this.copyright = document.createElement("small");
+    p.classList.add("copyright");
+    this.copyright.classList.add("block", "w-100");
+    p.appendChild(this.copyright);
 
     this.wrapper.classList.add("footer", "bg-white/50");
     this.text.contentEditable = !this.readOnly;
@@ -63,7 +67,7 @@ export class Footer {
     this.copyright.innerHTML =
       this.data && this.data.copyright ? this.data.copyright : "";
     this.wrapper.appendChild(this.text);
-    this.wrapper.appendChild(this.copyright);
+    this.wrapper.appendChild(p);
 
     return this.wrapper;
   }

@@ -48,7 +48,7 @@ function simpleTextParser(block) {
 }
 
 function footerParser(block) {
-  return `<div class="footer"><p>${block.data.text}</p><small>${block.data.copyright}</small></div>`;
+  return `<div class="footer"><p>${block.data.text}</p><p class="copyright"><small>${block.data.copyright}</small></p></div>`;
 }
 
 onMounted(() => {
