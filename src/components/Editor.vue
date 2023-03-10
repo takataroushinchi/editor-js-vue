@@ -12,7 +12,10 @@ import { Footer } from "@/components/editor/footer";
 import edjsHTML from "editorjs-html";
 
 let editor;
-const edjsParser = edjsHTML();
+const edjsParser = edjsHTML({
+  simpleText: simpleTextParser,
+  footer: footerParser,
+});
 
 let saveData = ref("");
 let parsedHtml = ref("");
@@ -38,6 +41,15 @@ const handleClick = (e) => {
 const toggleReadOnly = () => {
   editor.readOnly.toggle();
 };
+
+// Extend For Custom Blocks
+function simpleTextParser(block) {
+  return `<div class="simple-text"><p>${block.data.text}</p></div>`;
+}
+
+function footerParser(block) {
+  return `<div class="footer"><p>${block.data.text}</p><small>${block.data.copyright}</small></div>`;
+}
 
 onMounted(() => {
   editor = new EditorJS({
@@ -116,8 +128,8 @@ onMounted(() => {
       編集ON/OFF
     </button>
   </div>
-  <pre>{{ saveData }}</pre>
-  <pre>{{ parsedHtml }}</pre>
+  <pre class="bg-white border-1 mt-4 p-4">{{ saveData }}</pre>
+  <pre class="bg-white border-1 mt-4 p-4">{{ parsedHtml }}</pre>
 </template>
 
 <style scoped>

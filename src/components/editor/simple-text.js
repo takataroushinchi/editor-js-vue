@@ -29,7 +29,7 @@ export class SimpleText {
     this.wrapper = document.createElement("div");
     const caption = document.createElement("div");
 
-    this.wrapper.classList.add("border-4");
+    this.wrapper.classList.add("simple-text");
     caption.contentEditable = !this.readOnly;
     // caption.innerHTML = captionText || "";
     caption.innerHTML = this.data && this.data.text ? this.data.text : "";
