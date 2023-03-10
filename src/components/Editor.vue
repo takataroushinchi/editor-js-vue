@@ -3,8 +3,12 @@ import { ref, onMounted } from "vue";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
+import Marker from "@editorjs/marker";
+import Quote from "@editorjs/quote";
+import Table from "@editorjs/table";
+import Delimiter from "@editorjs/delimiter";
+import Embed from "@editorjs/embed";
 import SimpleImage from "@editorjs/simple-image";
-import RawTool from "@editorjs/raw";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
 import { SimpleText } from "@/components/editor/simple-text";
@@ -12,11 +16,6 @@ import { Footer } from "@/components/editor/footer";
 import edjsHTML from "editorjs-html";
 
 let editor;
-const edjsParser = edjsHTML({
-  simpleText: simpleTextParser,
-  footer: footerParser,
-});
-
 let saveData = ref("");
 let parsedHtml = ref("");
 
@@ -42,6 +41,11 @@ const toggleReadOnly = () => {
   editor.readOnly.toggle();
 };
 
+const edjsParser = edjsHTML({
+  simpleText: simpleTextParser,
+  footer: footerParser,
+});
+
 // Extend For Custom Blocks
 function simpleTextParser(block) {
   return `<div class="simple-text"><p>${block.data.text}</p></div>`;
@@ -59,17 +63,46 @@ onMounted(() => {
       header: {
         class: Header,
         config: {
-          placeholder: "Enter a header",
+          placeholder: "へッダー",
           levels: [2, 3, 4],
           defaultLevel: 3,
         },
-        // inlineToolbar: ['marker', 'link'],
         inlineToolbar: true,
         shortcut: "CMD+SHIFT+H",
       },
-      list: List,
       image: SimpleImage,
-      raw: RawTool,
+      list: List,
+      embed: {
+        class: Embed,
+        config: {
+          services: {
+            youtube: true,
+            twitter: true,
+          },
+        },
+      },
+      quote: {
+        class: Quote,
+        inlineToolbar: true,
+        shortcut: "CMD+SHIFT+O",
+        config: {
+          quotePlaceholder: "テキストを入力",
+          captionPlaceholder: "キャプションを入力",
+        },
+      },
+      delimiter: Delimiter,
+      table: {
+        class: Table,
+        inlineToolbar: true,
+        config: {
+          rows: 2,
+          cols: 3,
+        },
+      },
+      marker: {
+        class: Marker,
+        shortcut: "CMD+SHIFT+M",
+      },
       simpleText: {
         class: SimpleText,
         inlineToolbar: true,
@@ -77,6 +110,53 @@ onMounted(() => {
       footer: {
         class: Footer,
         inlineToolbar: true,
+      },
+    },
+    i18n: {
+      messages: {
+        ui: {
+          blockTunes: {
+            toggler: {
+              "Click to tune": "クリックして調整",
+              "or drag to move": "ドラッグして移動",
+            },
+          },
+          inlineToolbar: {
+            converter: {
+              "Convert to": "変換",
+            },
+          },
+          toolbar: {
+            toolbox: {
+              Add: "追加",
+            },
+          },
+        },
+        toolNames: {
+          Text: "テキスト",
+          Heading: "タイトル",
+          List: "リスト",
+          // Checklist: "チェックリスト",
+          Quote: "引用",
+          Delimiter: "直線",
+          Table: "表",
+          // Link: "リンク",
+          Bold: "太字",
+          Italic: "斜体",
+          Image: "画像",
+          Marker: "マーカー",
+        },
+        blockTunes: {
+          deleteTune: {
+            Delete: "削除",
+          },
+          moveUpTune: {
+            "Move up": "上に移動",
+          },
+          moveDownTune: {
+            "Move down": "下に移動",
+          },
+        },
       },
     },
     onReady: () => {
