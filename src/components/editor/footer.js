@@ -16,8 +16,13 @@ export class Footer {
     };
   }
 
-  constructor({ data, api }) {
+  static get isReadOnlySupported() {
+    return true;
+  }
+
+  constructor({ data, api, config, readOnly, block }) {
     this.api = api;
+    this.readOnly = readOnly;
     this.data = {
       text: data.text || "",
       copyright: data.copyright || "",
@@ -51,8 +56,8 @@ export class Footer {
     this.copyright = document.createElement("small");
 
     this.wrapper.classList.add("footer", "bg-white/50");
-    this.text.contentEditable = true;
-    this.copyright.contentEditable = true;
+    this.text.contentEditable = !this.readOnly;
+    this.copyright.contentEditable = !this.readOnly;
 
     this.text.innerHTML = this.data && this.data.text ? this.data.text : "";
     this.copyright.innerHTML =

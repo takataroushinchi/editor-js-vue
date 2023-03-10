@@ -9,14 +9,17 @@ import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
 import { SimpleText } from "@/components/editor/simple-text";
 import { Footer } from "@/components/editor/footer";
+import edjsHTML from "editorjs-html";
 
 let editor;
+const edjsParser = edjsHTML();
+
+let saveData = ref("");
+let parsedHtml = ref("");
 
 defineProps({
   msg: String,
 });
-
-let saveData = ref("");
 
 const handleClick = (e) => {
   editor
@@ -24,6 +27,8 @@ const handleClick = (e) => {
     .then((outputData) => {
       console.log("Article data: ", outputData);
       saveData.value = JSON.stringify(outputData, null, 4);
+
+      parsedHtml.value = edjsParser.parse(outputData);
     })
     .catch((error) => {
       console.log("Saving failed: ", error);
@@ -112,6 +117,7 @@ onMounted(() => {
     </button>
   </div>
   <pre>{{ saveData }}</pre>
+  <pre>{{ parsedHtml }}</pre>
 </template>
 
 <style scoped>

@@ -6,8 +6,22 @@ export class SimpleText {
     };
   }
 
-  constructor({ data }) {
+  /**
+   * Automatic sanitize config
+   */
+  static get sanitize() {
+    return {
+      text: {}, // only tags from Inline Toolbar
+    };
+  }
+
+  static get isReadOnlySupported() {
+    return true;
+  }
+
+  constructor({ data, api, config, readOnly, block }) {
     this.data = data;
+    this.readOnly = readOnly;
     this.wrapper = undefined;
   }
 
@@ -16,7 +30,7 @@ export class SimpleText {
     const caption = document.createElement("div");
 
     this.wrapper.classList.add("border-4");
-    caption.contentEditable = true;
+    caption.contentEditable = !this.readOnly;
     // caption.innerHTML = captionText || "";
     caption.innerHTML = this.data && this.data.text ? this.data.text : "";
     this.wrapper.appendChild(caption);
